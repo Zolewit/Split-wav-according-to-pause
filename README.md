@@ -1,1 +1,2 @@
-# Split-wav-according-to-pause
+# install pydub
+pip install pydub
