@@ -10,7 +10,7 @@ def split(filepath, save_path, time_length):
                               silence_thresh=dBFS-16,
                               keep_silence=250   # optional
                               )
-    # setting minimum length of each chunk to 25 seconds
+    # setting minimum length of each chunk to x seconds
     target_length = time_length * 1000
     output_chunks = [chunks[0]]
     for chunk in chunks[1:]:
@@ -20,10 +20,12 @@ def split(filepath, save_path, time_length):
             # if the last output chunk is longer than the target length,
             # we can start a new one
             output_chunks.append(chunk)
-
+    
+    # Attention!
     if os.path.exists(save_path):
         shutil.rmtree(save_path)
     os.mkdir(save_path)
+    
     for i, chunk in enumerate(output_chunks):
         chunk.export(os.path.join(
             save_path, "{0}.wav".format(i)), format="wav")
